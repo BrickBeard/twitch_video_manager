@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<br>
+
+<table class="video_table">
+    <h2 class="text_center">All Videos</h2>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Title</th>
+            <th>URL</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for video in data.videos %}
+        <tr>
+            <td><a href="{{ video.url }}" target="_blank"></a><img src="{{ video.thumbnail_url }}" alt=""></td>
+            <td><a href="{{ video.url }}" target="_blank">{{ video.title }}</a></td>
+            <td><a href="{{ video.url }}" target="_blank">{{ video.url }}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

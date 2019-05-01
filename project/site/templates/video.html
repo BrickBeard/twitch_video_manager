@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Techlahoma - Highlights
+{% endblock %}
+{% block content %}
+<br>
+<br>
+<table class="video_data">
+    <h2 class="text_center">From Twitch</h2>
+    <tbody>
+        {% for k, v in data.video[0].items() %}
+        <tr>
+            <td>{{ k }}</td>
+            <td>  </td>
+            <td>{{ v }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<table class="video_data">
+    <h2 class="text_center">From Meetup</h2>
+    <tbody>
+    {% for k, v in data.meetup.items() %}
+        <tr>
+            <td>{{ k }}</td>
+            <td>  </td>
+            <td>{{ v }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>
+        {% block title %}
+            Techlahoma - Video Manager
+        {% endblock %}
+    </title>
+</head>
+<body>
+    <div class="banner">
+        <div class="header">
+            <h1 class="text_center">Techlahoma's Video Management Utility</h1>
+            <br>
+            <ul class="nav text_center">
+                <li><a class="{% if request.path == '/' %}active{% endif %}" href="/">Videos</a></li>
+                <li><a class="{% if 'highlights' in request.path or 'video' in request.path %}active{% endif %}" href="{{ url_for('site.videos_highlight') }}">Highlights</a></li>
+            </ul>
+        </div>
+    </div>
+    {% block content %}
+
+    {% endblock %}
+    
+</body>
+</html>
