@@ -90,5 +90,3 @@ def video():
     
     return render_template('video.html', data = {'video': video, 'meetup': meetup})
 '''
-
-    
