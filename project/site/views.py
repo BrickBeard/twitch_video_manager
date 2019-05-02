@@ -51,9 +51,9 @@ def videos_highlight():
             payload['after'] = False
 
     from collections import Counter
-    titles = Counter([v['title'].strip().replace('Highlight: ', '') for v in videos])
+    titles = Counter([v['title'].strip().replace('Highlight: ', '')[:20] for v in videos])
     counter = [k for k, v in titles.items() if v==1]
-    videos_ = [v for v in videos if v['title'].strip().replace('Highlight: ', '') in counter and v['type'] == 'archive' and 'promos' not in v['title'].lower()]
+    videos_ = [v for v in videos if v['title'].strip().replace('Highlight: ', '')[:20] in counter and v['type'] == 'archive' and 'promos' not in v['title'].lower()]
 
     from io import BytesIO
     import base64
@@ -64,8 +64,6 @@ def videos_highlight():
         v['days'] = (datetime.datetime.today() - datetime.datetime.fromisoformat(v['created_at'][:-1])).days
 
     return render_template('highlights.html', data={'videos': videos_})
-
-
 
 
 # MEETUP API INTEGRATION: Currently not automated but would be great to figure out
