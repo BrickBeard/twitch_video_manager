@@ -26,7 +26,7 @@
             <td><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ video.id }}" target="_blank">{{ video.type }}</a></td>
             <td>
                 <a class="vid_actions vid_highlight" href="https://www.twitch.tv/techlahoma/manager/edit/{{ video.id }}" target="_blank">Highlight</a>
-                <a class="vid_actions vid_details" href="#">Details</a>   <!-- url_for('site.video', id=video.id) -->
+                <a class="vid_actions vid_details" href="{{ url_for('site.video', id=video.id) }}">Details</a>   <!-- url_for('site.video', id=video.id) -->
             </td>
         </tr>
         {% endfor %}

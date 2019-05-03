@@ -7,7 +7,7 @@
 <br>
 <br>
 <table class="video_data">
-    <h2 class="text_center">From Twitch</h2>
+    <h2 class="text_center">From Twitch API</h2>
     <tbody>
         {% for k, v in data.video[0].items() %}
         <tr>
@@ -16,19 +16,6 @@
             <td>{{ v }}</td>
         </tr>
         {% endfor %}
-    </tbody>
-</table>
-<br>
-<table class="video_data">
-    <h2 class="text_center">From Meetup</h2>
-    <tbody>
-    {% for k, v in data.meetup.items() %}
-        <tr>
-            <td>{{ k }}</td>
-            <td>  </td>
-            <td>{{ v }}</td>
-        </tr>
-    {% endfor %}
     </tbody>
 </table>
 {% endblock %}

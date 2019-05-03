@@ -5,7 +5,6 @@ from flask import render_template, request, redirect, Blueprint, jsonify
 from project.config import client_id, user_id
 
 
-
 # Blueprint Declaration
 site = Blueprint(
     'site',
@@ -66,8 +65,7 @@ def videos_highlight():
     return render_template('highlights.html', data={'videos': videos_})
 
 
-# MEETUP API INTEGRATION: Currently not automated but would be great to figure out
-'''
+# Reference Route 
 @site.route('/video')
 def video():
     id_ = request.args.get('id')
@@ -75,6 +73,8 @@ def video():
     data = {'Client-ID': client_id}
     response = json.loads(requests.get('https://api.twitch.tv/helix/videos', headers=data, params=twitch_params).text)
     video = response['data']
+    
+    ''' Meetup API Integration: Currently not automated but would be great to figure out
 
     meetup = [{'something': 'coming'}]
     created_date = datetime.datetime.fromisoformat(video[0]['created_at'][:-1])
@@ -85,6 +85,6 @@ def video():
     response = json.loads(requests.get('https://api.meetup.com/DevopsOKC/events', params=meetup_params).text)
     print(f'response: {response}')
     meetup = response[0]
+    '''
     
-    return render_template('video.html', data = {'video': video, 'meetup': meetup})
-'''
+    return render_template('video.html', data = {'video': video})
