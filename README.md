@@ -3,7 +3,7 @@
 [![built-with-Flask](https://img.shields.io/badge/Built%20With-Flask%201.0.2-brightgreen.svg?style=flat-square)](http://flask.pocoo.org/) [![Python-Version](https://img.shields.io/badge/Python-3.7-orange.svg?style=flat-square)](https://www.python.org/downloads/) [![Testing](https://img.shields.io/badge/Testing-Pytest-blue.svg?style=flat-square)](https://docs.pytest.org/en/latest/)
 
 
-This app is currently designed to identify which terchlahoma broadcasts are still in need of highlights (the broadcasts expire after 60 days if they have not been highlighted).  The future vision for the app includes automating most steps of the broadcasting, highlighting, and exporting process. 
+This app is currently designed to identify which Techlahoma broadcasts are still in need of highlights (the broadcasts expire after 60 days if they have not been highlighted).  The future vision for the app includes automating most steps of the broadcasting, highlighting, and exporting process. 
 
 > *Eventually, we would like to connect this with a database where all of this data can be managed (IDs to relate results from multiple APIs, user login system, etc)
 
