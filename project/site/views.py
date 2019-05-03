@@ -74,7 +74,9 @@ def video():
     response = json.loads(requests.get('https://api.twitch.tv/helix/videos', headers=data, params=twitch_params).text)
     video = response['data']
     
-    ''' Meetup API Integration: Currently not automated but would be great to figure out
+    ''' Meetup API Integration:
+        (Ideally, this would call the Meetup API and grab information about this talk using some
+        identifying field from the Twitch API call above.)
 
     meetup = [{'something': 'coming'}]
     created_date = datetime.datetime.fromisoformat(video[0]['created_at'][:-1])

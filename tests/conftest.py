@@ -11,7 +11,7 @@ base_url = 'http://localhost:5000{}'
 @fixture(scope='session')
 def app():
     app_ = create_app('test.cfg')
-    print(app_.config)
+
     ctx = app_.app_context()
     ctx.push()
     
