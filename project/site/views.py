@@ -1,6 +1,9 @@
 import requests
 import datetime
 import json
+import base64
+from collections import Counter
+from io import BytesIO
 from flask import render_template, request, redirect, Blueprint, jsonify
 from project.config import client_id, user_id
 
@@ -30,6 +33,13 @@ def index():
             payload.update({'after': response['pagination']['cursor']})
         else:
             payload['after'] = False
+    
+    for v in videos:
+        if ':' in v['title']:
+            v['group'] = v['title'][v['title'].rfind(':')+2:]
+        else:
+            v['group'] = '#Techlahoma'
+
     return render_template('index.html', data={'videos': videos})
 
 @site.route('/highlights')
@@ -49,20 +59,26 @@ def videos_highlight():
         else:
             payload['after'] = False
 
-    from collections import Counter
-    titles = Counter([v['title'].strip().replace('Highlight: ', '')[:20] for v in videos])
-    counter = [k for k, v in titles.items() if v==1]
-    videos_ = [v for v in videos if v['title'].strip().replace('Highlight: ', '')[:20] in counter and v['type'] == 'archive' and 'promos' not in v['title'].lower()]
+    for v in videos:
+        v['days'] = (datetime.datetime.today() - datetime.datetime.fromisoformat(v['created_at'][:-1])).days
+        v['group'] = v['title'][v['title'].rfind(':')+2:]
 
-    from io import BytesIO
-    import base64
+    titles = Counter([v['title'].strip().replace('Highlight: ', '')[:20] for v in videos])
+    counter_title = [k for k, v in titles.items() if v==1]
+    videos_ = [v for v in videos if v['title'].strip().replace('Highlight: ', '')[:20] in counter_title and v['type'] == 'archive' and 'promos' not in v['title'].lower() and 'lightning talk' not in v['title'].lower()]
+    lightning_ = [v for v in videos if 'Lightning Talk' in v['title'] and v['days'] < 60 and 'Highlight' not in v['title'] and v['type'] == 'archive']
+
     for v in videos_:
         contents = BytesIO(requests.get(v["thumbnail_url"].replace("%","").format(width=200,height=110)).content)
         encoded = str(base64.b64encode(contents.getvalue()))[2:-1]
         v['thumbnail_url'] = encoded
-        v['days'] = (datetime.datetime.today() - datetime.datetime.fromisoformat(v['created_at'][:-1])).days
 
-    return render_template('highlights.html', data={'videos': videos_})
+    for l in lightning_:
+        contents_ = BytesIO(requests.get(l["thumbnail_url"].replace("%","").format(width=200,height=110)).content)
+        encoded_ = str(base64.b64encode(contents_.getvalue()))[2:-1]
+        l['thumbnail_url'] = encoded_
+
+    return render_template('highlights.html', data={'videos': videos_, 'lightning': lightning_})
 
 
 # Reference Route 

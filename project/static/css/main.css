@@ -17,6 +17,9 @@ body { background-color: #FFFFFF; font-family: 'Open Sans', sans-serif; color: #
 .video_table td:nth-child(2), .video_table th:nth-child(2) { min-width: 150px; }
 .video_table tbody tr td:nth-last-child(n+2) a { display: block; text-decoration: none; color: #525252; }
 .video_table tr:hover > td:nth-last-child(n+2) { background-color: #f9f9f9; }
+.video_table tr td:last-child, .video_table tr th:last-child { width: 175px; }
+.all_vids tr td:nth-child(3), .video_table tr th:nth-child(3) { width: 400px; }
+.all_vids tr td:last-child { display: block; text-decoration: none; color: #525252; } 
 .video_table tr td a.vid_actions { display: block; text-decoration: none; text-align: center; padding: 5px 12px; margin: 3px; border-radius: 5px; }
 .video_table tr td a.vid_highlight { color: white; background-color: #2c8a48; border: 2px solid #2c8a48; }
 .video_table tr td a.vid_details { color: white; background-color: #525252; border: 2px solid #525252; }
@@ -28,7 +31,7 @@ body { background-color: #FFFFFF; font-family: 'Open Sans', sans-serif; color: #
 .video_table tr:last-child td:first-child { border-bottom-left-radius: 10px; }
 .video_table tr:last-child td:last-child { border-bottom-right-radius: 10px; }
 /* --- Details Tables --- */
-.video_data { width: 90%; margin-left: auto; margin-right: auto; border-collapse: separate; border-spacing: 0; }
+.video_data { max-width: 90%; margin-left: auto; margin-right: auto; border-collapse: separate; border-spacing: 0; }
 .video_data th { padding-top: 12px; padding-bottom: 12px; text-align: center; background-color: rgba(58, 112, 157, 0.5); color: #F0F0F0; }
 .video_data { border: 1px solid rgba(58, 112, 157, 0.5); padding: 8px; border-radius: 10px; }
 .video_data tr:nth-last-child(n+2) td { border-bottom: 1px solid rgba(136, 176, 209, 0.5); }
@@ -36,39 +39,7 @@ body { background-color: #FFFFFF; font-family: 'Open Sans', sans-serif; color: #
 .video_data td:nth-child(2) { width: 25px; }
 .video_data tbody tr td:nth-last-child(n+2) a { display: block; text-decoration: none; color: #3A709D; }
 .video_data tr:hover > td { background-color: #f9f9f9; font-weight: bold; }  
-/* Forms */
-.form_wrapper { width: 40%; margin-left: auto; margin-right: auto; border-radius: 10px; border: 5px dashed #3A709D; box-shadow: 10px 10px 20px rgba(58, 112, 157, 0.5); }
-.form_wrapper form { border-radius: 10px; padding-bottom: 5px; }
-.form_wrapper form p { padding: 0px 15px; }
-.form_wrapper form p label { font-weight: bold; }
-.form_wrapper form p input[type=text] { width: 100%; padding: 10px 0px; display: inline-block; border: 1px solid #3A709D; border-radius: 5px; text-indent: 20px; }
-.form_wrapper form p select { 
-    width: 100%; 
-    padding: 10px 0px; 
-    display: inline-block; 
-    border: 1px solid #3A709D; 
-    border-radius: 5px; 
-    text-indent: 20px; 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-.form_wrapper form p input[type=submit] { background-color: #3A709D; color: #F0F0F0; border: none; padding: 8px 15px; border: 2px solid #3A709D; border-radius: 5px; }
-.form_buttons { font-family: 'Courier New', Courier, monospace; font-size: 10px; font-weight: 700; cursor: pointer; }
-.form_buttons a { text-decoration: none; font-size: 10px; font-weight: 600; padding: 5px 10px; border: 2px solid #3A709D; border-radius: 5px; color: #3A709D; }
-.form_buttons input[type=submit]:hover { background-color: #FFFFFF; color: #3A709D; cursor: pointer; }
-.form_buttons a:hover { background-color: #929292; border: 2px solid #929292; color: #F0F0F0; }
-/* API Modal */
-.modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(58, 112, 157, 0.4); }
-.modal-content { background-color: #F0F0F0; margin: 100px auto; padding: 20px; border: 1px solid #3A709D; border-radius: 10px; width: 60%; }
-.modal-content .close { color: #3A709D; float: right; font-size: 28px; font-weight: bold; }
-.modal-content .close:hover, .modal-content .close:focus { color: #3a3a3a; text-decoration: none; cursor: pointer; }
-/* Delete Modal */
-#delete_modal .modal-content { margin: 20% auto; }
-.confirm_delete { text-align: center; }
-.confirm_delete a { border: 2px solid #3A709D; border-radius: 5px; text-decoration: none; color: #3A709D; font-weight: bold; padding: 10px 15px; }
-.confirm_delete #del_btn { background-color: #d35557; border: 2px solid #d35557; color: #F0F0F0; }
-.confirm_delete #del_btn:hover { background-color: #f0f0f0; color: #d35557; }
+
 /* Helper Classes */
 a.right { float: right; }
 

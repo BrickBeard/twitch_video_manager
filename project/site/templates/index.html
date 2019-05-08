@@ -4,13 +4,13 @@
 <br>
 <br>
 
-<table class="video_table">
+<table class="video_table all_vids">
     <h2 class="text_center">All Videos</h2>
     <thead>
         <tr>
             <th></th>
             <th>Title</th>
-            <th>URL</th>
+            <th>Group</th>
         </tr>
     </thead>
     <tbody>
@@ -18,7 +18,7 @@
         <tr>
             <td><a href="{{ video.url }}" target="_blank"></a><img src="{{ video.thumbnail_url }}" alt=""></td>
             <td><a href="{{ video.url }}" target="_blank">{{ video.title }}</a></td>
-            <td><a href="{{ video.url }}" target="_blank">{{ video.url }}</a></td>
+            <td><a href="https://www.meetup.com/find/?allMeetups=false&keywords={{ video.group.lower().replace(' ', '+') }}&radius=100&userFreeform=Oklahoma+City%2C+OK&mcId=z73103&mcName=Oklahoma+City%2C+OK&sort=recommended" target="_blank">{{ video.group }}</a></td>
         </tr>
         {% endfor %}
     </tbody>
