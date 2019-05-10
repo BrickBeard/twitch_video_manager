@@ -61,22 +61,26 @@ def videos_highlight():
 
     for v in videos:
         v['days'] = (datetime.datetime.today() - datetime.datetime.fromisoformat(v['created_at'][:-1])).days
-        v['group'] = v['title'][v['title'].rfind(':')+2:]
+        if ':' in v['title']:
+            v['group'] = v['title'][v['title'].rfind(':')+2:]
+        else:
+            v['group'] = '#Techlahoma'
 
     titles = Counter([v['title'].strip().replace('Highlight: ', '')[:20] for v in videos])
     counter_title = [k for k, v in titles.items() if v==1]
     videos_ = [v for v in videos if v['title'].strip().replace('Highlight: ', '')[:20] in counter_title and v['type'] == 'archive' and 'promos' not in v['title'].lower() and 'lightning talk' not in v['title'].lower()]
-    lightning_ = [v for v in videos if 'Lightning Talk' in v['title'] and v['days'] < 60 and 'Highlight' not in v['title'] and v['type'] == 'archive']
+    lightning_ = [v for v in videos if v['title'].strip().replace('Highlight: ', '')[:20] in counter_title and 'Lightning Talk' in v['title'] and v['days'] < 60 and v['type'] == 'archive']
 
     for v in videos_:
         contents = BytesIO(requests.get(v["thumbnail_url"].replace("%","").format(width=200,height=110)).content)
         encoded = str(base64.b64encode(contents.getvalue()))[2:-1]
         v['thumbnail_url'] = encoded
 
+    # This loop is used to convert and format the thumbnail_url so we can display it on the site
     for l in lightning_:
         contents_ = BytesIO(requests.get(l["thumbnail_url"].replace("%","").format(width=200,height=110)).content)
         encoded_ = str(base64.b64encode(contents_.getvalue()))[2:-1]
-        l['thumbnail_url'] = encoded_
+        l['thumbnail_url'] = encoded_        
 
     return render_template('highlights.html', data={'videos': videos_, 'lightning': lightning_})
 
