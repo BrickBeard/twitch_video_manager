@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Techlahoma - Highlights
+{% endblock %}
+{% block content %}
+<br>
+<br>
+<table class="video_table pending_table">
+    <h2 class="text_center">Videos Needing Highlights</h2>
+    <thead>
+        <tr>
+            <th class="thumbnail"></th>
+            <th class="title">Title</th>
+            <th>Days Since Broadcast</th>
+            <th class="group">Group</th>
+            <th class="actions">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% if data.videos|length > 0 %}
+        {% for video in data.videos %}
+        <tr>
+            <td class="thumbnail"><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ video.id }}"><img src="data:;base64,{{ video.thumbnail_url }}"></a></td>
+            <td class="title"><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ video.id }}">{{ video.title }}</a></td>
+            <td class="text_center"><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ video.id }}">{{ video.days }}</a></td>
+            <td class="group"><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ video.id }}">{{ video.group }}</a></td>
+            <td class="actions">
+                <a class="vid_actions vid_highlight" href="https://www.twitch.tv/techlahoma/manager/highlighter/{{ video.id }}">Highlight</a>
+                <a class="vid_actions vid_details" href="{{ url_for('site.video', id=video.id) }}" target="_self">Details</a>
+            </td>
+        </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td></td>
+            <td>No Pending Talks (check the Lightning Talks below)</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<br>
+<table class="video_table pending_table">
+    <h2 class="text_center">Recent Lightning Talks (Check for Highlights)</h2>
+    <thead>
+        <tr>
+            <th class="thumbnail"></th>
+            <th class="title">Title</th>
+            <th>Days Since Broadcast</th>
+            <th class="group">Group</th>
+            <th class="actions">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% if data.lightning|length > 0 %}
+        {% for talk in data.lightning %}
+        <tr>
+            <td class="thumbnail"><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ talk.id }}"><img src="data:;base64,{{ talk.thumbnail_url }}"></a></td>
+            <td class="title"><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ talk.id }}">{{ talk.title }}</a></td>
+            <td class="text_center"><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ talk.id }}">{{ talk.days }}</a></td>
+            <td class="group"><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ talk.id }}">{{ talk.group }}</a></td>
+            <td class="actions">
+                <a class="vid_highlight" href="https://www.twitch.tv/techlahoma/manager/highlighter/{{ talk.id }}">Highlight</a>
+                <a class="vid_details" href="{{ url_for('site.video', id=talk.id) }}" target="_self">Details</a>
+            </td>
+        </tr>
+        {% endfor %}
+    {% else %}
+    <tr>
+        <td></td>
+        <td>No pending Lightning Talks</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    {% endif %}
+    </tbody>
+</table>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

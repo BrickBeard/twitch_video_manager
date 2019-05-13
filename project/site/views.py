@@ -25,16 +25,19 @@ def index():
     videos = response['data']
     payload.update({'after': response['pagination']['cursor']})
     while payload['after']:
-        resp = requests.get('https://api.twitch.tv/helix/videos', headers=data, params=payload)
-        response = json.loads(resp.text)
-        videos.extend(response['data'])
-        payload.pop('after')
-        if not response['pagination'] == {}:
-            payload.update({'after': response['pagination']['cursor']})
-        else:
-            payload['after'] = False
-    
+        try: 
+            resp = requests.get('https://api.twitch.tv/helix/videos', headers=data, params=payload)
+            response = json.loads(resp.text)
+            videos.extend(response['data'])
+            payload.pop('after')
+            if not response['pagination'] == {}:  
+                payload.update({'after': response['pagination']['cursor']})
+            else:
+                payload['after'] = False
+        except KeyError:
+            return "<br><br><h1 style='text-align: center;'>Error loading content...</h1><p style='text-align: center;'>Please try to <a href='/'>refresh</a> the page</p>"    
     for v in videos:
+        v['created_at'] = datetime.datetime.fromisoformat(v['created_at'][:-1]).strftime("%b %d, %Y")
         if ':' in v['title']:
             v['group'] = v['title'][v['title'].rfind(':')+2:]
         else:
@@ -42,22 +45,25 @@ def index():
 
     return render_template('index.html', data={'videos': videos})
 
-@site.route('/highlights')
-def videos_highlight():
+@site.route('/pending')
+def pending():
     payload = {'user_id': user_id, 'first': 100}
     data = {'Client-ID': client_id}
     response = json.loads(requests.get('https://api.twitch.tv/helix/videos', headers=data, params=payload).text)
     videos = response['data']
     payload.update({'after': response['pagination']['cursor']})
     while payload['after']:
-        resp = requests.get('https://api.twitch.tv/helix/videos', headers=data, params=payload)
-        response = json.loads(resp.text)
-        videos.extend(response['data'])
-        payload.pop('after')
-        if not response['pagination'] == {}:
-            payload.update({'after': response['pagination']['cursor']})
-        else:
-            payload['after'] = False
+        try: 
+            resp = requests.get('https://api.twitch.tv/helix/videos', headers=data, params=payload)
+            response = json.loads(resp.text)
+            videos.extend(response['data'])
+            payload.pop('after')
+            if not response['pagination'] == {}:  
+                payload.update({'after': response['pagination']['cursor']})
+            else:
+                payload['after'] = False
+        except Exception as e:
+            return "<br><br><h1 style='text-align: center;'>Error loading content...</h1><p style='text-align: center;'>Please try to <a href='/pending'>refresh</a> the page</p>"
 
     for v in videos:
         v['days'] = (datetime.datetime.today() - datetime.datetime.fromisoformat(v['created_at'][:-1])).days
@@ -82,8 +88,35 @@ def videos_highlight():
         encoded_ = str(base64.b64encode(contents_.getvalue()))[2:-1]
         l['thumbnail_url'] = encoded_        
 
-    return render_template('highlights.html', data={'videos': videos_, 'lightning': lightning_})
+    return render_template('pending.html', data={'videos': videos_, 'lightning': lightning_})
 
+@site.route('/highlights')
+def highlights():
+    payload = {'user_id': user_id, 'first': 100}
+    data = {'Client-ID': client_id}
+    response = json.loads(requests.get('https://api.twitch.tv/helix/videos', headers=data, params=payload).text)
+    videos = response['data']
+    payload.update({'after': response['pagination']['cursor']})
+    while payload['after']:
+        resp = requests.get('https://api.twitch.tv/helix/videos', headers=data, params=payload)
+        response = json.loads(resp.text)
+        videos.extend(response['data'])
+        payload.pop('after')
+        if not response['pagination'] == {}:
+            payload.update({'after': response['pagination']['cursor']})
+        else:
+            payload['after'] = False
+    
+    videos_ = [v for v in videos if v['type'] == 'highlight']
+    
+    for v in videos_:
+        v['created_at'] = datetime.datetime.fromisoformat(v['created_at'][:-1]).strftime("%b %d, %Y")
+        if ':' in v['title']:
+            v['group'] = v['title'][v['title'].rfind(':')+2:]
+        else:
+            v['group'] = '#Techlahoma'
+
+    return render_template('highlights.html', data={'videos': videos_})
 
 # Reference Route 
 @site.route('/video')

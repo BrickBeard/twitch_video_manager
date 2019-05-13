@@ -10,6 +10,7 @@
             Techlahoma - Video Manager
         {% endblock %}
     </title>
+    <base target="_blank">
 </head>
 <body>
     <div class="banner">
@@ -17,11 +18,14 @@
             <h1 class="text_center">Techlahoma's Video Management Utility</h1>
             <br>
             <ul class="nav text_center">
-                <li><a class="{% if request.path == '/' %}active{% endif %}" href="/">Videos</a></li>
-                <li><a class="{% if 'highlights' in request.path or 'video' in request.path %}active{% endif %}" href="{{ url_for('site.videos_highlight') }}">Highlights</a></li>
+                <li><a class="{% if request.path == '/' or request.path == '/video' %}active{% endif %}" href="/" target="_self">Videos</a></li>
+                <li><a class="{% if request.path == '/pending' %}active{% endif %}" href="{{ url_for('site.pending') }}" target="_self">Pending</a></li>
+                <li><a class="{% if request.path == '/highlights' %}active{% endif %}" href="{{ url_for('site.highlights') }}" target="_self">Highlights</a></li>
             </ul>
         </div>
     </div>
+    <br>
+    <a class="twitch_link" href="https://www.twitch.tv/techlahoma/manager">Twitch Video Producer</a>
     {% block content %}
 
     {% endblock %}

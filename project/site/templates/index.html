@@ -8,17 +8,19 @@
     <h2 class="text_center">All Videos</h2>
     <thead>
         <tr>
-            <th></th>
-            <th>Title</th>
-            <th>Group</th>
+            <th class="title">Title</th>
+            <th class="group">Group</th>
+            <th class="date">Date</th>
+            <th class="actions"></th>
         </tr>
     </thead>
     <tbody>
         {% for video in data.videos %}
         <tr>
-            <td><a href="{{ video.url }}" target="_blank"></a><img src="{{ video.thumbnail_url }}" alt=""></td>
-            <td><a href="{{ video.url }}" target="_blank">{{ video.title }}</a></td>
-            <td><a href="https://www.meetup.com/find/?allMeetups=false&keywords={{ video.group.lower().replace(' ', '+') }}&radius=100&userFreeform=Oklahoma+City%2C+OK&mcId=z73103&mcName=Oklahoma+City%2C+OK&sort=recommended" target="_blank">{{ video.group }}</a></td>
+            <td class="title"><a href="{{ video.url }}">{{ video.title }}</a></td>
+            <td class="date"><a href="{{ video.url }}">{{ video.created_at }}</a></td>
+            <td class="group"><a href="https://www.meetup.com/find/?allMeetups=false&keywords={{ video.group.lower().replace(' ', '+') }}&radius=100&userFreeform=Oklahoma+City%2C+OK&mcId=z73103&mcName=Oklahoma+City%2C+OK&sort=recommended">{{ video.group }}</a></td>
+            <td class="actions"><a class="vid_edit" href="{{ url_for('site.video', id=video.id) }}">Details</a></td>
         </tr>
         {% endfor %}
     </tbody>

@@ -1,67 +1,31 @@
 {% extends 'base.html' %}
 
-{% block title %}
-    Techlahoma - Highlights
-{% endblock %}
 {% block content %}
 <br>
 <br>
-<table class="video_table">
-    <h2 class="text_center">Videos Needing Highlights</h2>
+
+<table class="video_table highlights_table">
+    <h2 class="text_center">Highlight Videos</h2>
     <thead>
         <tr>
-            <th></th>
-            <th>Title</th>
-            <th>Days Since Broadcast</th>
-            <th>Group</th>
-            <th>Actions</th>
+            <th class="title">Title</th>
+            <th class="date">Date</th>
+            <th class="group">Group</th>
+            <th class="actions">Actions</th>
         </tr>
     </thead>
     <tbody>
         {% for video in data.videos %}
         <tr>
-            <td><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ video.id }}" target="_blank"><img src="data:;base64,{{ video.thumbnail_url }}"></a></td>
-            <td><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ video.id }}" target="_blank">{{ video.title }}</a></td>
-            <td class="text_center"><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ video.id }}" target="_blank">{{ video.days }}</a></td>
-            <td><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ video.id }}" target="_blank">{{ video.group }}</a></td>
-            <td>
-                <a class="vid_actions vid_highlight" href="https://www.twitch.tv/techlahoma/manager/highlighter/{{ video.id }}" target="_blank">Highlight</a>
-                <a class="vid_actions vid_details" href="{{ url_for('site.video', id=video.id) }}">Details</a>
+            <td class="title"><a href="{{ url_for('site.video', id=video.id) }}" target="_self">{{ video.title }}</a></td>
+            <td class="date"><a href="{{ url_for('site.video', id=video.id) }}" target="_self">{{ video.created_at }}</a></td>
+            <td class="group"><a href="{{ url_for('site.video', id=video.id) }}" target="_self">{{ video.group }}</a></td>
+            <td class="actions">
+                <a class="vid_edit" href="https://www.twitch.tv/techlahoma/manager/edit/{{ video.id }}">Edit</a>
+                <a class="vid_details" href="{{ url_for('site.video', id=video.id) }}" target="_self">Details</a>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-<br>
-<table class="video_table">
-    <h2 class="text_center">Recent Lightning Talks (Check for Highlights)</h2>
-    <thead>
-        <tr>
-            <th></th>
-            <th>Title</th>
-            <th>Days Since Broadcast</th>
-            <th>Group</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for talk in data.lightning %}
-        <tr>
-            <td><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ talk.id }}" target="_blank"><img src="data:;base64,{{ talk.thumbnail_url }}"></a></td>
-            <td><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ talk.id }}" target="_blank">{{ talk.title }}</a></td>
-            <td class="text_center"><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ talk.id }}" target="_blank">{{ talk.days }}</a></td>
-            <td><a href="https://www.twitch.tv/techlahoma/manager/edit/{{ talk.id }}" target="_blank">{{ talk.group }}</a></td>
-            <td>
-                <a class="vid_actions vid_highlight" href="https://www.twitch.tv/techlahoma/manager/highlighter/{{ talk.id }}" target="_blank">Highlight</a>
-                <a class="vid_actions vid_details" href="{{ url_for('site.video', id=talk.id) }}">Details</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-<br>
-<br>
-<br>
-<br>
-<br>
 {% endblock %}
