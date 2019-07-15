@@ -8,4 +8,4 @@ def get_env_variable(name):
         raise Exception(message)
 
 client_id = get_env_variable('CLIENT_ID')
-user_id = 139224404
+user_id = int(get_env_variable('USER_ID'))

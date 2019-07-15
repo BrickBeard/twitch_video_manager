@@ -126,7 +126,6 @@ def video():
     data = {'Client-ID': client_id}
     response = json.loads(requests.get('https://api.twitch.tv/helix/videos', headers=data, params=twitch_params).text)
     video = response['data']
-    
     ''' Meetup API Integration:
         (Ideally, this would call the Meetup API and grab information about this talk using some
         identifying field from the Twitch API call above.)
@@ -141,5 +140,8 @@ def video():
     print(f'response: {response}')
     meetup = response[0]
     '''
-    
     return render_template('video.html', data = {'video': video})
+
+# Test Route
+# @site.route('/test')
+# def test():
