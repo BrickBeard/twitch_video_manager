@@ -18,9 +18,9 @@
             <h1 class="text_center">Techlahoma's Video Management Utility</h1>
             <br>
             <ul class="nav text_center">
-                <li><a class="{% if request.path == '/' or request.path == '/video' %}active{% endif %}" href="/" target="_self">Videos</a></li>
+                <li><a class="{% if request.path == '/' or request.path == '/video' %}active{% endif %}" href="/" target="_self">All Videos</a></li>
                 <li><a class="{% if request.path == '/pending' %}active{% endif %}" href="{{ url_for('site.pending') }}" target="_self">Pending</a></li>
-                <li><a class="{% if request.path == '/highlights' %}active{% endif %}" href="{{ url_for('site.highlights') }}" target="_self">Highlights</a></li>
+                <li><a class="{% if request.path == '/highlights' %}active{% endif %}" href="{{ url_for('site.highlights') }}" target="_self">Videos Needing Highlights</a></li>
             </ul>
         </div>
     </div>
